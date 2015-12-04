@@ -8,6 +8,9 @@ use App\Category;
 use App\Field;
 use App\Device;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use App\Information;
+use App\Owner;
 
 class CategoryController extends Controller
 {
@@ -64,7 +67,31 @@ class CategoryController extends Controller
         $deleted_device = Device::onlyTrashed()->where('category_id', $category->id)->get();
         $devices = Device::with(['information.field', 'owner', 'status'])->where('category_id', $category->id)->latest('updated_at');
 
-        $devices = $devices->where('name', 'LIKE', '%'.$request->get('filter').'%')->paginate(25);
+        if ($request->has('filter')) {
+            $device_filter = $devices->where('name', 'LIKE', '%'.$request->get('filter').'%')->get();
+
+            if (count($device_filter) == 0) {
+                $first_name_filter = Device::whereHas('owner', function($q) use ($request) {
+                    $q->where('firstName', 'LIKE', '%'.$request->get('filter').'%');
+                })->get();
+
+                if (count($first_name_filter) == 0) {
+                    $devices = Device::whereHas('owner', function($q) use ($request) {
+                       $q->where('lastName', 'LIKE', '%'.$request->get('filter').'%');
+                    });
+                } else {
+                    $devices = Device::whereHas('owner', function($q) use ($request) {
+                       $q->where('firstName', 'LIKE', '%'.$request->get('filter').'%');
+                    });
+                }
+            } else {
+                $devices = $devices->where('name', 'LIKE', '%'.$request->get('filter').'%');
+            }
+        }
+
+        $devices = $devices->paginate(25);
+
+        //$devices = $devices->where('name', 'LIKE', '%'.$request->get('filter').'%')->paginate(25);
         $devices->setPath($category->slug);
 
         return view('category.show', compact('category', 'deleted_device', 'devices'));
@@ -80,7 +107,6 @@ class CategoryController extends Controller
     {
         return view('category.edit', compact('category'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -157,7 +183,7 @@ class CategoryController extends Controller
     public function viewCategoryStatusesHistory($category_slug)
     {
         $category = Category::whereSlug($category_slug)->first();
-        
+
         return view('category.device_statuses', compact('category'));
     }
 

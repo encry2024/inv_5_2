@@ -37,7 +37,11 @@
             <h3>{{ $category->name  }} Category</h3>
             <hr/>
             @if (Request::has('filter'))
-                <div class="alert alert-success" role="alert">Entered Query: "{{ Request::get('filter') }}" Filter Result: {{ $devices->firstItem() }} to {{ $devices->lastItem() }} out of {{$devices->total()}} Devices</div>
+                <div class="alert alert-success" role="alert">
+                Entered Query: "{{ Request::get('filter') }}"
+                Filter Result: {{ $devices->firstItem() }} to
+                {{ $devices->lastItem() }} out of {{$devices->total()}} Devices
+                </div>
             @endif
             <form class="form-horizontal">
                 <div class="form-group">
@@ -45,7 +49,9 @@
                         <input type="search" class="form-control" id="filter" name="filter" placeholder="Search Device" style="margin-left: 38.5rem;">
                     </div>
                     <button type="submit" class="btn btn-default" style="margin-left: 38rem;">Filter</button>
-                    <a role="button" class="btn btn-default" href="{{ route('category.show', $category->slug) }}" style="margin-left: 0rem !important;">Clear filter</a>
+                    <a role="button" class="btn btn-default" href="{{ route('category.show', $category->slug) }}" style="margin-left: 0rem !important;">
+                    Clear filter
+                    </a>
                 </div>
             </form>
             <table class="table table-condensed">
@@ -72,7 +78,17 @@
                         @endforeach
                         <tr>
                             <td>
-                                {!! $device->owner_id!=0 ? '<a class="label label-danger" href="'. route('owner.show', $device->owner->slug) .'">'. $device->owner->fullName() .'</a>' : '<span class="label label-success">Ready to Deploy</span>' !!}
+                                @if ($device->owner_id != 0)
+                                    @if ($device->status_id == 1)
+                                        <a class="label label-danger" href="{{ route('owner.show', $device->owner->slug) }}">{{ $device->owner->fullName() }}</a>
+                                    @endif
+                                @else
+                                    @if ($device->status_id != 1)
+                                        <kbd>{{ $device->status->status }}</kbd>
+                                    @elseif ($device->status_id == 1)
+                                        <span class="label label-success">Ready to Deploy</span>
+                                    @endif
+                                @endif
                             </td>
                             <td>
                                 <a href="{{ route('device.edit', $device->slug) }}">{{ $device->name }}</a>
@@ -87,7 +103,9 @@
                                 <label for="">{{ $device->status->status }}</label>
                             </td>
                             <td>
-                                <label title="{{ date('M d, Y h:i A', strtotime($device->updated_at)) }}">{{ date('M d, Y H:i', strtotime($device->updated_at)) }}</label>
+                                <label title="{{ date('M d, Y h:i A', strtotime($device->updated_at)) }}">
+                                    {{ date('M d, Y H:i', strtotime($device->updated_at)) }}
+                                </label>
                             </td>
                         </tr>
                     @endforeach
@@ -95,7 +113,9 @@
             </table>
             <form class="form-inline">
                 <div class="form-group left" style=" margin-top: 2.55rem; ">
-                    <label class="" for="">Showing {!! $devices->firstItem() !!} to {!! $devices->lastItem() !!} out of {!! $devices->total() !!} Categories</label>
+                    <label class="" for="">
+                    Showing {!! $devices->firstItem() !!} to {!! $devices->lastItem() !!} out of {!! $devices->total() !!} Categories
+                    </label>
                 </div>
                 <div class="form-group right">
                     <span class="right">{!! $devices->appends(['filter' => Request::get('filter')])->render() !!}</span>

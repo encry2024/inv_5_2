@@ -9,7 +9,7 @@ class DeviceStatus extends Eloquent {
 	protected $table = 'device_statuses';
 
 	public function status() {
-		return $this->belongsTo('App\status');
+		return $this->belongsTo('App\Status');
 	}
 
 	public function device() {

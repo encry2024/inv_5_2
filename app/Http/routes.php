@@ -117,3 +117,8 @@ Route::post('user/changed_password', ['as' => 'auth_cp', 'uses' => 'UserControll
 
 # REPORT ROUTE
 get('report', ['as' => 'report', 'uses' => 'DeviceLogController@showReport']);
+
+
+post('reset_password', function (\App\Http\Requests\Request $request, User $user) {
+	dd($user);
+});

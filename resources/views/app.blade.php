@@ -44,7 +44,7 @@
 	@yield('content')
 	@yield('script')
 	@yield('style')
-	@if (Request::path() != "auth/login")
+	{{--@if (Request::path() != "auth/login")
 	<div class="container">
 		<div class="col-lg-12">
 			<hr/>
@@ -52,7 +52,7 @@
 			<label class="right size-12 app-info-label" for=""><kbd>Inventory `5 &mdash; Version: 1.2.1.1</kbd></label>
 		</div>
 	</div>
-	@endif
+	@endif--}}
 	<style>
 		body {
 			/*background-color: #ddd;*/

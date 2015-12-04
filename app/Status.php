@@ -14,7 +14,7 @@ class Status extends Eloquent implements SluggableInterface {
 	protected $softDelete = true;
 	protected $dates = ['deleted_at'];
 
-	protected $fillable = ['status', 'slug', 'description'];
+	protected $fillable = ['status', 'slug', 'description', 'color'];
 
 	protected $sluggable = array(
 		'build_from' => 'status',

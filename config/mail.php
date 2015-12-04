@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => null, 'name' => null],
+	'from' => ['address' => 'christan@outsource2northstar.com', 'name' => 'IT Password Resetter'],
 
 	/*
 	|--------------------------------------------------------------------------

@@ -38,7 +38,9 @@
                     <li><a role="button" class=" col-lg-12 text-left size-13" href="#"  data-toggle='modal' data-target='#noteStore' ><span class="glyphicon glyphicon-pencil"></span> Make a Note</a></li>
                     @if ($device->owner_id != 0)
                         <li><a role="button" class=" col-lg-12 text-left size-13" data-toggle='modal' data-target='#disassociate_device' href="#"><span class="glyphicon glyphicon-remove"></span> Disassociate</a></li>
-                    @else
+                    @elseif ($device->status_id != 1)
+                        <li class="disabled"><a role="button" id="grp" class=" col-lg-12 text-left size-13" data-toggle='modal' data-target='#associate_device' href="#"><span class="glyphicon glyphicon-tag"></span> Associate</a></li>
+                    @elseif (($device->status_id == 1) && ($device->owner_id == 0))
                         <li><a role="button" id="grp" class=" col-lg-12 text-left size-13 cli" data-toggle='modal' data-target='#associate_device' href="#"><span class="glyphicon glyphicon-tag"></span> Associate</a></li>
                     @endif
                     <li><a role="button" class=" col-lg-12 text-left size-13" href="#" data-toggle='modal' data-target='#change_status'><span class="glyphicon glyphicon-repeat"></span> Change Status</a></li>

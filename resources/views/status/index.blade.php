@@ -50,11 +50,18 @@
 					<div class="row">
 						<div class="col-md-12 center col-lg-offset-1">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Status:</label>
+								<label class="col-md-4 control-label" for="status">Status:</label>
 								<div class="col-md-6">
-									<input type="string" class="form-control" name="status" value="{{ old('status') }}">
+									<input type="string" class="form-control" name="status" id="status" value="{{ old('status') }}">
 								</div>
 							<br/><br/>
+							<label class="col-md-4 control-label" for="color_input">Status:</label>
+								<div class="col-md-6">
+									<select name="color_input" id="color_input">
+										@include('util.color_option')
+									</select>
+								</div>
+							<br><br>
 							<div class="form-group">
 								<label class="col-md-4 control-label">Description:</label>
 								<div class="col-md-6">
@@ -75,7 +82,6 @@
 </div>
 {!! Form::close() !!}
 </div>
-
 @stop
 
 @section('script')

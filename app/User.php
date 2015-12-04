@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Eloquent implements AuthenticatableContract, CanResetPasswordContract
 {
-    use Authenticatable, CanResetPassword, RecordsActivity;
+    use Authenticatable, CanResetPassword;
 
     /**
      * The database table used by the model.
@@ -48,6 +48,9 @@ class User extends Eloquent implements AuthenticatableContract, CanResetPassword
 
     public function recordActivity($name, $related)
     {
+        if ( ! method_exists($related, 'recordActivity')) {
+            throw new \Exception('..');
+        }
         return $related->recordActivity($name);
     }
 

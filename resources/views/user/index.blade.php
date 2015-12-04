@@ -2,6 +2,15 @@
 
 @section('header')
 	@include('util.m-topbar')
+	<div class="container">
+		<div class="col-lg-12">
+			<ol class="breadcrumb" style=" margin-left: 1.5rem; ">
+				<li><label>Inventory</label>
+				<li><a href="{{ route('home') }}" class="active">Home</a></li>
+				<li><label for="">Manage Users</label></li>
+			</ol>
+		</div>
+	</div>
 @stop
 
 @section('content')

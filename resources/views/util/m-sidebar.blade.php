@@ -1,4 +1,4 @@
-<div class="col-lg-3">
+<div class="col-lg-3 col-md-3 col-sm-3">
 	<div class="btn-group-vertical col-lg-12" style="width: 100%;" role="group">
 		<a href="{{ route('category.create')  }}" class="btn btn-default col-lg-12 text-left size-13" role="button"><span class="glyphicon glyphicon-plus"></span> Create Categories</a>
 		<a href="{{ route('user.index') }}" class="btn btn-default text-left size-13 col-lg-12" role="button"><span class="glyphicon glyphicon-user"></span> Manage Users <span class="badge right">{{ App\User::getUserCount()  }}</span></a>
